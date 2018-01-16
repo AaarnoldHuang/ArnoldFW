@@ -1,11 +1,14 @@
 package tk.arnoldwho.arnold.arnoldfw;
 
 import android.app.Activity;
+import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.util.Log;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.widget.ArrayAdapter;
@@ -26,10 +29,13 @@ public class AppinfoActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_appinfo);
         ListView applistview = (ListView) findViewById(R.id.applist);
-        final ArrayList<AppinfoActivity> appList = new ArrayList<AppinfoActivity>();      //新建ArrayList
-        final ArrayAdapter<AppinfoActivity> list;        //新建Adapter
-        list = new ArrayAdapter<AppinfoActivity> (this, R.layout.list_item, R.id.name_view, appList);
+        final ArrayList<AppinfoActivity> appList = new ArrayList<AppinfoActivity>();
+        final ArrayList<String> appnamelist = new ArrayList<>();
 
+        List<Object> applistinfo = new ArrayList<>();
+
+        final ArrayAdapter<String> list;   //适配器
+        list = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, appnamelist);    //绑定适配器
         applistview.setAdapter(list);
 
         List<PackageInfo> packages = this.getPackageManager().getInstalledPackages(PackageManager.MATCH_UNINSTALLED_PACKAGES);
@@ -39,9 +45,17 @@ public class AppinfoActivity extends Activity {
             tmpInfo.appName = packageInfo.applicationInfo.loadLabel(this.getPackageManager()).toString();
             tmpInfo.appIcon = packageInfo.applicationInfo.loadIcon(this.getPackageManager());
             tmpInfo.packageName = packageInfo.packageName;
-            appList.add(tmpInfo);
+            //appList.add(tmpInfo);
+            if((packageInfo.applicationInfo.flags& ApplicationInfo.FLAG_SYSTEM)==0)
+            {
+                appList.add(tmpInfo);//如果非系统应用，则添加至appList
+            }
         }
-        //list.notifyDataSetChanged();
+        for (int i = 0; i < appList.size(); i++) {
+            appnamelist.add(appList.get(i).appName);
+            //applistinfo.add(new HashMap<String, Object>().put("image", appList.get(i).appIcon));
+            applistinfo.add(new HashMap<String, Object>().put("name", appList.get(i).appName));
 
+        }
     }
 }

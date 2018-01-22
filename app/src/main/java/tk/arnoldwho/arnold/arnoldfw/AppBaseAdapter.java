@@ -1,7 +1,7 @@
 package tk.arnoldwho.arnold.arnoldfw;
 
-
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
@@ -24,7 +24,7 @@ public class AppBaseAdapter extends BaseAdapter {
 
     public Context context;
     final ArrayList<Appinfo> appList = new ArrayList<>();
-    private LayoutInflater mInflater;
+    public String packageName = "";
 
     public AppBaseAdapter(Context context) {
         this.context = context;
@@ -61,13 +61,38 @@ public class AppBaseAdapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent){
-        LayoutInflater inflater = LayoutInflater.from(context);
-        View view = inflater.inflate(R.layout.list_item,null);
-        TextView textView = (TextView) view.findViewById(R.id.name_view);
-        ImageView imageView = (ImageView) view.findViewById(R.id.icon_view);
-        textView.setText(appList.get(position).appName);
-        imageView.setImageDrawable(appList.get(position).appIcon);
-        return view;
+    public View getView(final int position, View convertView, ViewGroup parent){
+        final ViewHolder viewHolder;
+        if (convertView == null) {
+            viewHolder = new ViewHolder();
+            convertView = LayoutInflater.from(context).inflate(R.layout.list_item,
+                    null);
+            viewHolder.textView = (TextView) convertView.findViewById(R.id.name_view);
+            viewHolder.imageView = (ImageView) convertView.findViewById(R.id.icon_view);
+            convertView.setTag(viewHolder);
+        } else {
+            viewHolder = (ViewHolder) convertView.getTag();
+        }
+        viewHolder.textView.setText(appList.get(position).appName);
+        viewHolder.imageView.setImageDrawable(appList.get(position).appIcon);
+        viewHolder.textView.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+             packageName = appList.get(position).packageName;
+             Intent intent = new Intent();
+             intent.setClass(context, PackageInfoActivity.class);
+             context.startActivity(intent);
+            }
+        });
+        return convertView;
     }
+
+    public final static class ViewHolder {
+        TextView textView;
+        ImageView imageView;
+    }
+
+
+
 }

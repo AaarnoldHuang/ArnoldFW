@@ -1,4 +1,6 @@
 <resources>
     <string name="app_name">ArnoldFW</string>
     <string name="title_activity_appinfo">AppinfoActivity</string>
+    <string name="title_activity_package_info">PackageInfoActivity</string>
+    <string name="title_activity_show_activities">ShowActivitiesActivity</string>
 </resources>

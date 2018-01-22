@@ -19,10 +19,15 @@
         <activity
             android:name=".AppinfoActivity"
             android:label="@string/title_activity_appinfo"
-            android:theme="@style/AppTheme.NoActionBar">
-        </activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".PackageInfoActivity"
+            android:label="@string/title_activity_package_info"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".ShowActivitiesActivity"
+            android:label="@string/title_activity_show_activities"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
-
-
 
 </manifest>

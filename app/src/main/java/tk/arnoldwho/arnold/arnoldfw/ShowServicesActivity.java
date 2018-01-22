@@ -1,13 +1,25 @@
 package tk.arnoldwho.arnold.arnoldfw;
 
+import android.content.Context;
+import android.content.pm.ActivityInfo;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+
+import java.util.ArrayList;
 
 public class ShowServicesActivity extends AppCompatActivity {
+
+    public String pname = "";
+    private ArrayList<String> sers = new ArrayList<>();
+    private ListView listView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -15,7 +27,6 @@ public class ShowServicesActivity extends AppCompatActivity {
         setContentView(R.layout.activity_show_services);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -24,6 +35,30 @@ public class ShowServicesActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
+        pname = AppBaseAdapter.setPackageName();
+        getServices(this);
+        listView = (ListView)findViewById(R.id.activitieslist);
+        ArrayAdapter<String> activitiesAdapter = new ArrayAdapter<String>(this,
+                android.R.layout.simple_expandable_list_item_1,
+                sers);
+        listView.setAdapter(activitiesAdapter);
+    }
+
+    public void getServices(Context context) {
+        PackageManager pm=context.getPackageManager();
+        try {
+            PackageInfo packageInfo=pm.getPackageInfo(pname,  PackageManager.GET_ACTIVITIES);
+            ActivityInfo[] activityInfoList = packageInfo.activities;
+            if (packageInfo.activities == null){
+                sers.add("无Activity！");
+                return;
+            }
+            for (ActivityInfo activityInfo : activityInfoList) {
+                sers.add(activityInfo.name);
+            }
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 
 }

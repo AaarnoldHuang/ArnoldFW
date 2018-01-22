@@ -58,6 +58,10 @@ public class ChooseAdapter extends BaseAdapter {
                     intent.setClass(context, ShowActivitiesActivity.class);
                     context.startActivity(intent);
                 }
+                else if(position == 1){
+                    intent.setClass(context, ShowServicesActivity.class);
+                    context.startActivity(intent);
+                }
             }
         });
         return convertView;
@@ -65,6 +69,5 @@ public class ChooseAdapter extends BaseAdapter {
 
     private final static class Holder {
         TextView textView;
-
     }
 }

@@ -25,6 +25,8 @@ public class AppBaseAdapter extends BaseAdapter {
     public Context context;
     final ArrayList<Appinfo> appList = new ArrayList<>();
     public static String packageName = "";
+    public static String APPName = "";
+
 
     public AppBaseAdapter(Context context) {
         this.context = context;
@@ -80,6 +82,7 @@ public class AppBaseAdapter extends BaseAdapter {
             @Override
             public void onClick(View v) {
              packageName = appList.get(position).packageName;
+             APPName = appList.get(position).appName;
              Intent intent = new Intent();
              intent.setClass(context, PackageInfoActivity.class);
              context.startActivity(intent);
@@ -95,6 +98,10 @@ public class AppBaseAdapter extends BaseAdapter {
 
     public static String setPackageName(){
         return packageName;
+    }
+
+    public static String setTitle(){
+        return APPName;
     }
 
 

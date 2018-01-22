@@ -1,6 +1,7 @@
 package tk.arnoldwho.arnold.arnoldfw;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,13 +37,13 @@ public class ChooseAdapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
         final Holder holder;
         if (convertView == null) {
             holder = new ChooseAdapter.Holder();
-            convertView = LayoutInflater.from(context).inflate(R.layout.list_item,
-                    null); //change
-            holder.textView = (TextView) convertView.findViewById(R.id.name_view);   //change
+            convertView = LayoutInflater.from(context).inflate(R.layout.choose_view,
+                    null);
+            holder.textView = (TextView) convertView.findViewById(R.id.choose);
             convertView.setTag(holder);
         } else {
             holder = (Holder) convertView.getTag();
@@ -52,7 +53,11 @@ public class ChooseAdapter extends BaseAdapter {
 
             @Override
             public void onClick(View v) {
-
+                Intent intent = new Intent();
+                if (position == 0){
+                    intent.setClass(context, ShowActivitiesActivity.class);
+                    context.startActivity(intent);
+                }
             }
         });
         return convertView;

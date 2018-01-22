@@ -24,7 +24,7 @@ public class AppBaseAdapter extends BaseAdapter {
 
     public Context context;
     final ArrayList<Appinfo> appList = new ArrayList<>();
-    public String packageName = "";
+    public static String packageName = "";
 
     public AppBaseAdapter(Context context) {
         this.context = context;
@@ -91,6 +91,10 @@ public class AppBaseAdapter extends BaseAdapter {
     public final static class ViewHolder {
         TextView textView;
         ImageView imageView;
+    }
+
+    public static String setPackageName(){
+        return packageName;
     }
 
 

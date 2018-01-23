@@ -1,8 +1,10 @@
 package tk.arnoldwho.arnold.arnoldfw;
 
+import android.media.Image;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -14,6 +16,8 @@ public class PackageInfoActivity extends AppCompatActivity {
         setContentView(R.layout.activity_package_info);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         TextView titleView = (TextView) findViewById(R.id.toolbar_title);
+        ImageView imgView = (ImageView) findViewById(R.id.toolbar_icon);
+        imgView.setImageDrawable(AppBaseAdapter.AppIcon);
         titleView.setText(AppBaseAdapter.APPName);
         setSupportActionBar(toolbar);
         ListView listView = (ListView)findViewById(R.id.chooselist);

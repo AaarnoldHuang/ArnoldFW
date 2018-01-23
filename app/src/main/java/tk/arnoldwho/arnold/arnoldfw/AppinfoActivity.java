@@ -3,6 +3,7 @@ package tk.arnoldwho.arnold.arnoldfw;
 import android.app.Activity;
 
 import android.os.Bundle;
+import android.widget.ImageView;
 import android.widget.ListView;
 
 public class AppinfoActivity extends Activity {

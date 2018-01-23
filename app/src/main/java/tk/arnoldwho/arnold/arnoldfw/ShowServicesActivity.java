@@ -11,6 +11,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -29,6 +30,8 @@ public class ShowServicesActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         TextView titleView = (TextView) findViewById(R.id.toolbar_title);
         titleView.setText(AppBaseAdapter.APPName);
+        ImageView imgView = (ImageView) findViewById(R.id.toolbar_icon);
+        imgView.setImageDrawable(AppBaseAdapter.AppIcon);
         setSupportActionBar(toolbar);
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {

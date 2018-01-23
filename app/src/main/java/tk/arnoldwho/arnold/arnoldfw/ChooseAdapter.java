@@ -62,6 +62,10 @@ public class ChooseAdapter extends BaseAdapter {
                     intent.setClass(context, ShowServicesActivity.class);
                     context.startActivity(intent);
                 }
+                else if(position == 2){
+                    intent.setClass(context, ShowBroadcastActivity.class);
+                    context.startActivity(intent);
+                }
             }
         });
         return convertView;

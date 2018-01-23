@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,6 +27,7 @@ public class AppBaseAdapter extends BaseAdapter {
     final ArrayList<Appinfo> appList = new ArrayList<>();
     public static String packageName = "";
     public static String APPName = "";
+    public static Drawable AppIcon;
 
 
     public AppBaseAdapter(Context context) {
@@ -83,6 +85,7 @@ public class AppBaseAdapter extends BaseAdapter {
             public void onClick(View v) {
              packageName = appList.get(position).packageName;
              APPName = appList.get(position).appName;
+             AppIcon = appList.get(position).appIcon;
              Intent intent = new Intent();
              intent.setClass(context, PackageInfoActivity.class);
              context.startActivity(intent);
@@ -102,6 +105,10 @@ public class AppBaseAdapter extends BaseAdapter {
 
     public static String setTitle(){
         return APPName;
+    }
+
+    public static Drawable setPackageIcon(){
+        return AppIcon;
     }
 
 

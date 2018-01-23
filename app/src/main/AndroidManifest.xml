@@ -31,6 +31,10 @@
         <activity
             android:name=".ShowServicesActivity"
             android:label="@string/title_activity_show_services"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".ShowBroadcastActivity"
+            android:label="@string/title_activity_show_broadcast"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 

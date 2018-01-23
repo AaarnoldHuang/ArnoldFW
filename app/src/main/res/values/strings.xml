@@ -4,4 +4,5 @@
     <string name="title_activity_package_info">PackageInfoActivity</string>
     <string name="title_activity_show_activities">ShowActivitiesActivity</string>
     <string name="title_activity_show_services">ShowServicesActivity</string>
+    <string name="title_activity_show_broadcast">ShowBroadcastActivity</string>
 </resources>

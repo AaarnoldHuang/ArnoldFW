@@ -63,8 +63,8 @@ public class ChooseAdapter extends BaseAdapter {
                     context.startActivity(intent);
                 }
                 else if(position == 2){
-                    intent.setClass(context, ShowBroadcastActivity.class);
-                    context.startActivity(intent);
+                    //intent.setClass(context, ShowBroadcastActivity.class);
+                    //context.startActivity(intent);
                 }
             }
         });

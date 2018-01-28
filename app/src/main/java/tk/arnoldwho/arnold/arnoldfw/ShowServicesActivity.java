@@ -33,12 +33,19 @@ public class ShowServicesActivity extends AppCompatActivity {
         ImageView imgView = (ImageView) findViewById(R.id.toolbar_icon);
         imgView.setImageDrawable(AppBaseAdapter.AppIcon);
         setSupportActionBar(toolbar);
+        final MakeFiles mk = new MakeFiles();
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                if (!mk.Make()){
+                    Snackbar.make(view, "文件已存在！", Snackbar.LENGTH_LONG)
+                            .setAction("Action", null).show();
+                }
+                else {
+                    Snackbar.make(view, "文件已创建！", Snackbar.LENGTH_LONG)
+                            .setAction("Action", null).show();
+                }
             }
         });
         pname = AppBaseAdapter.setPackageName();

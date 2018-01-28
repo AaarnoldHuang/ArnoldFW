@@ -14,7 +14,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Button appbutton = (Button) findViewById(R.id.btn1);
-        Getroot.upgradeRootPermission("/data");
+        //Getroot.upgradeRootPermission("/data");
         appbutton.setOnClickListener(new Button.OnClickListener() {
             public void onClick(View v) {
                 Intent intent = new Intent();

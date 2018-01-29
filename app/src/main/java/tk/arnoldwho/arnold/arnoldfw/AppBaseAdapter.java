@@ -98,19 +98,4 @@ public class AppBaseAdapter extends BaseAdapter {
         TextView textView;
         ImageView imageView;
     }
-
-    public static String setPackageName(){
-        return packageName;
-    }
-
-    public static String setTitle(){
-        return APPName;
-    }
-
-    public static Drawable setPackageIcon(){
-        return AppIcon;
-    }
-
-
-
 }

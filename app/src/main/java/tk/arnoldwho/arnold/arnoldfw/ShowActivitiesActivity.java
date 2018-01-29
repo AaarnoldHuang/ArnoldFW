@@ -7,15 +7,9 @@ import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.text.Layout;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -24,8 +18,9 @@ import java.util.ArrayList;
 
 public class ShowActivitiesActivity extends AppCompatActivity {
 
-    private  ArrayList<String> acts = new ArrayList<>();
+    final ArrayList<Itemsinfo> acts = new ArrayList<>();
     private ListView listView;
+    public static String string = "";
 
     private final static class Holder {
         TextView textView;
@@ -47,9 +42,17 @@ public class ShowActivitiesActivity extends AppCompatActivity {
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View view) {
+
+                for (int i = 0; i < acts.size(); i++){
+                    if (acts.get(i).flag == 1){
+                        string += acts.get(i).itemName + '\n';
+                    }
+                }
                 if (!mk.Make()){
+
                     Snackbar.make(view, "文件已存在！", Snackbar.LENGTH_LONG)
                             .setAction("Action", null).show();
                 }
@@ -63,13 +66,8 @@ public class ShowActivitiesActivity extends AppCompatActivity {
 
         getActivities(this);
         listView = (ListView)findViewById(R.id.activitieslist);
-        listView.setAdapter(new ArrayAdapter<String>(this, R.layout.item_layout,R.id.items, acts));
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-        @Override
-        public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
-            
-        }
-        });
+        ItemBaseAdapter itemBaseAdapter = new ItemBaseAdapter(getApplicationContext(), acts);
+        listView.setAdapter(itemBaseAdapter);
     }
 
     public void getActivities(Context context) {
@@ -78,12 +76,18 @@ public class ShowActivitiesActivity extends AppCompatActivity {
             PackageInfo packageInfo=pm.getPackageInfo(AppBaseAdapter.packageName,  PackageManager.GET_ACTIVITIES);
             ActivityInfo[] activityInfoList = packageInfo.activities;
             if (packageInfo.activities == null){
-                acts.add("无Activity！");
+                Itemsinfo tempInfo = new Itemsinfo();
+                tempInfo.itemName = "No Activity!";
+                acts.add(tempInfo);
                 return;
             }
+            else {
                 for (ActivityInfo activityInfo : activityInfoList) {
-                        acts.add(activityInfo.name);
+                    Itemsinfo tempInfo = new Itemsinfo();
+                    tempInfo.itemName = activityInfo.name;
+                    acts.add(tempInfo);
                 }
+            }
             } catch (PackageManager.NameNotFoundException e) {
                 e.printStackTrace();
             }

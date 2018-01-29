@@ -1,7 +1,6 @@
 package tk.arnoldwho.arnold.arnoldfw;
 
 import android.content.Context;
-import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.ServiceInfo;
@@ -10,10 +9,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -22,8 +18,7 @@ import java.util.ArrayList;
 
 public class ShowServicesActivity extends AppCompatActivity {
 
-    public String pname = "";
-    private ArrayList<String> sers = new ArrayList<>();
+    final ArrayList<Itemsinfo> sers = new ArrayList<>();
     private ListView listView;
 
     @Override
@@ -58,11 +53,8 @@ public class ShowServicesActivity extends AppCompatActivity {
 
         getServices(this);
         listView = (ListView)findViewById(R.id.serviceslist);
-        ArrayAdapter<String> activitiesAdapter = new ArrayAdapter<String>(this,
-                android.R.layout.simple_list_item_multiple_choice,
-                sers);
-        listView.setAdapter(activitiesAdapter);
-        listView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
+        ItemBaseAdapter itemBaseAdapter = new ItemBaseAdapter(getApplicationContext(), sers);
+        listView.setAdapter(itemBaseAdapter);
     }
 
     public void getServices(Context context) {
@@ -71,12 +63,16 @@ public class ShowServicesActivity extends AppCompatActivity {
             PackageInfo packageInfo=pm.getPackageInfo(AppBaseAdapter.packageName,  PackageManager.GET_SERVICES);
             ServiceInfo[] serviceInfoList = packageInfo.services;
             if (packageInfo.services == null){
-                sers.add("无Service！");
+                Itemsinfo tempItem = new Itemsinfo();
+                tempItem.itemName = "No Service!";
+                sers.add(tempItem);
                 return;
             }
 
             for (ServiceInfo serviceInfo : serviceInfoList) {
-                sers.add(serviceInfo.name);
+                Itemsinfo tempItem = new Itemsinfo();
+                tempItem.itemName = serviceInfo.name;
+                sers.add(tempItem);
             }
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();

@@ -22,10 +22,6 @@ public class ShowActivitiesActivity extends AppCompatActivity {
     private ListView listView;
     public static String string = "";
 
-    private final static class Holder {
-        TextView textView;
-    }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,18 +44,12 @@ public class ShowActivitiesActivity extends AppCompatActivity {
 
                 for (int i = 0; i < acts.size(); i++){
                     if (acts.get(i).flag == 1){
-                        string += acts.get(i).itemName + '\n';
+                        string += "<component-filter name=\\\"" + acts.get(i).itemName + "\\\" />\\n";
                     }
                 }
-                if (!mk.Make()){
-
-                    Snackbar.make(view, "文件已存在！", Snackbar.LENGTH_LONG)
-                            .setAction("Action", null).show();
-                }
-                else {
-                    Snackbar.make(view, "文件已创建！", Snackbar.LENGTH_LONG)
-                            .setAction("Action", null).show();
-                }
+                mk.Make(1);
+                Snackbar.make(view, "文件已创建！", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
             }
         });
 

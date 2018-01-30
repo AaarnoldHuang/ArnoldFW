@@ -1,64 +1,25 @@
 package tk.arnoldwho.arnold.arnoldfw;
 
 import java.io.DataOutputStream;
-import java.io.File;
 
 /**
  * Created by arnold on 2018/1/28.
  */
 
 public class MakeFiles {
-    private String str = "/data/system/ifw/" + AppBaseAdapter.APPName + ".xml";
-
-    public Boolean Check(String files) {
-
-        try {
-            File file = new File(files);
-            if (!file.exists()) {
-                return false;
-            }
-        } catch (Exception e) {
-            return false;
-        }
-        return true;
-    }
-
-    public Boolean Make() {
-        if (Check(str)) {
+    private String cmd;
+    public Boolean Make(int i) {
             Process process = null;
             DataOutputStream os = null;
             try {
-                String imput = "su -c \"" + ShowActivitiesActivity.string + "\" >> " + str;
-                process = Runtime.getRuntime().exec("su");
-                os = new DataOutputStream(process.getOutputStream());
-                os.writeBytes(imput + "\n");
-                os.writeBytes("exit\n");
-                os.flush();
-                process.waitFor();
-            }catch (Exception e) {
-                return false;
-            } finally {
-                try {
-                    if (os != null) {
-                        os.close();
-                    }
-                    process.destroy();
-                } catch (Exception e) {
+                if (i == 1){
+                    cmd = "su -c /data/ifw.sh -a " + AppBaseAdapter.APPName + ".xml \"" + ShowActivitiesActivity.string + "\"";
                 }
-            }
-            return false;
-        }
-        else{
-            Process process = null;
-            DataOutputStream os = null;
-            try {
-                String cmd = "su -c touch " + str;
-                String imput = "echo \"" + ShowActivitiesActivity.string + "\" >> " + str;
-                process = Runtime.getRuntime().exec("su");
+                else if (i == 2){
+                    cmd = "su -c /data/ifw.sh -b " + AppBaseAdapter.APPName + ".xml \"" + ShowActivitiesActivity.string + "\"";
+                }
+                process = Runtime.getRuntime().exec(cmd);
                 os = new DataOutputStream(process.getOutputStream());
-                os.writeBytes(cmd + "\n");
-                os.writeBytes(imput + "\n");
-                os.writeBytes("exit\n");
                 os.flush();
                 process.waitFor();
             }
@@ -74,6 +35,5 @@ public class MakeFiles {
                 }
             }
             return true;
-        }
     }
 }

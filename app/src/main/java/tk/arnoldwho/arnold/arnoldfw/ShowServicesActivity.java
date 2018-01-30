@@ -20,6 +20,7 @@ public class ShowServicesActivity extends AppCompatActivity {
 
     final ArrayList<Itemsinfo> sers = new ArrayList<>();
     private ListView listView;
+    public static String string = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,16 +38,18 @@ public class ShowServicesActivity extends AppCompatActivity {
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View view) {
-                if (!mk.Make()){
-                    Snackbar.make(view, "文件已存在！", Snackbar.LENGTH_LONG)
-                            .setAction("Action", null).show();
+
+                for (int i = 0; i < sers.size(); i++){
+                    if (sers.get(i).flag == 1){
+                        string += "<component-filter name=\\\"" + sers.get(i).itemName + "\\\" />\\n";
+                    }
                 }
-                else {
-                    Snackbar.make(view, "文件已创建！", Snackbar.LENGTH_LONG)
-                            .setAction("Action", null).show();
-                }
+                mk.Make(2);
+                Snackbar.make(view, "文件已创建！", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
             }
         });
 
